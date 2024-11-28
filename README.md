@@ -31,35 +31,35 @@ Several files on the USB drive were compressed in `.zip` format. I proceeded to 
 
 ### 6. Verifying the Integrity of the Extracted Files
 Once the files were unzipped, I performed an integrity check by generating hashes for the extracted files. By calculating the SHA256 hash values for each file, I was able to ensure the integrity of the files and later check them against known databases to verify if they had been flagged as malicious in the past.
-![](https://i.imgur.com/ikNo4Bk.png)
+![](https://i.imgur.com/VDOZxcm.png)
 
 ### 7. Verifying the Signature of the PDF File
 Among the extracted files, there was a PDF document. Opening the PDF file directly could potentially activate any embedded malicious code. To mitigate this risk, I first examined the file's signature using a hex dump tool. By inspecting the file's header, I confirmed that it was indeed a PDF document and not some other type of potentially harmful file masquerading as a PDF.
-![](https://i.imgur.com/HHUQX6I.png)
-
-![](https://i.imgur.com/jc0ku2b.png)
+![](https://i.imgur.com/CGmDyGr.png)
 
 ### 8. Analyzing the PDF File’s Structure
 After confirming that the file was a legitimate PDF, I used **PPDF (PDF Parsing and Dissection Tool)** to analyze its internal structure. This allowed me to examine the individual components of the PDF, such as embedded scripts, objects, and other elements, which could potentially be used for malicious purposes.
-![](https://i.imgur.com/s4MI0E7.png)
+![](https://i.imgur.com/mbzERz4.png)
 
 ### 9. Identifying Suspicious Objects within the PDF
 While parsing the PDF, I identified several suspicious objects, particularly **Object 27** and **Object 28**, which seemed to exhibit unusual behavior. I closely examined these objects to understand their function and determine if they posed any security risks.
-![](https://i.imgur.com/oqE7Ovo.png)
+![](https://i.imgur.com/ChPYFcs.png)
 
-![](https://i.imgur.com/lGxvEtZ.png)
+![](https://i.imgur.com/jT3RJNn.png)
 
 ### 10. Investigating Object 27: Command Execution Attempt
 Object 27 appeared to reference `cmd.exe`, a command prompt executable, which is commonly used in Windows environments. The object seemed to be trying to execute a command that would open a file located in the **System32** directory, which is often targeted by malware. This behavior indicated that the PDF might be attempting to execute system commands without user consent.
-![](https://i.imgur.com/bkamrEx.png)
+![](https://i.imgur.com/9VYz1Ds.png)
 
 ### 11. Investigating Object 3: Auto-Action (AA) Mechanism
 I also examined **Object 3**, which contained an **AA (Auto-Action)** action. The AA action is a feature in PDF files that triggers automatic execution of a command when the document is opened. This was a significant red flag, as it indicated the potential for this PDF to execute malicious activity upon being viewed by an unsuspecting user.
-![](https://i.imgur.com/HKkalBi.png)
+
+![](https://i.imgur.com/6lqCIno.png)
 
 ### 12. Submitting the PDF to VirusTotal for Analysis
 To validate my findings and cross-check the PDF for known threats, I submitted the file to **VirusTotal**, an online service that scans files using multiple antivirus engines. The scan results confirmed my suspicions, as the file was flagged by several antivirus engines as malicious.
-![alt text](https://i.imgur.com/LBZwRCx.png)
+
+![](https://i.imgur.com/JnfzYlw.png)
 
 ---
 
